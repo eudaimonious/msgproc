@@ -1,5 +1,5 @@
 require 'nsq-cluster'
-require 'nsq-ruby'
+require 'nsq'
 
 # Start a cluster of 3 nsqd's and 2 nsqlookupd's.
 # This will block execution until all components are fully up and running.
