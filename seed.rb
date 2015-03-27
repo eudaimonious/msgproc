@@ -1,5 +1,7 @@
 require 'nsq'
+require 'json'
 
+Nsq.logger = Logger.new(STDOUT)
 # Seed NSQ with data
 
 # Each message in the queue is a JSON string with a GUID video_id attribute,
@@ -10,16 +12,17 @@ require 'nsq'
 # of 100,000 plays across the 100 videos, but ensure there are at least 15 videos
 # with fewer than 100 plays each.
 
+
+
 producer = Nsq::Producer.new(
   nsqd: '127.0.0.1:4250',
   topic: 'some-topic'
 )
 
-# Write a message to NSQ
-producer.write('some-message')
+100.times do
+  producer.write({:video_id => rand(100)}.to_json)
+end
 
-# # Write a bunch of messages to NSQ (uses mpub)
-producer.write('one', 'two', 'three', 'four', 'five')
 
 # # Close the connection
 producer.terminate
