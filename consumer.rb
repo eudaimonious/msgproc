@@ -6,10 +6,16 @@ consumer = Nsq::Consumer.new(
   channel: 'some-channel'
 )
 
+puts 'hello world'
+puts consumer.size
+
 # Pop a message off the queue
 msg = consumer.pop
 puts msg.body
 msg.finish
+
+
+
 
 # Close the connections
 consumer.terminate
